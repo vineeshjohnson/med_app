@@ -213,7 +213,68 @@ class _AppointmentSelectionScreenState
 
   @override
   Widget build(BuildContext context) {
-    List<String> availableTimeSlots = List.from(timeSlots);
+    DateTime currentDate = DateTime.now();
+    int currentTime = currentDate.hour;
+    List<String> slotes = [];
+    if (_selectedDate != null && _selectedDate == currentDate) {
+      if (currentTime < 8) {
+        slotes = [
+          '10:00 AM',
+          '11:00 AM',
+          '12:00 PM',
+          '02:00 PM',
+          '03:00 PM',
+          '04:00 PM',
+          '05:00 PM',
+          '06:00 PM',
+        ];
+      } else if (currentTime < 9) {
+        slotes = [
+          '11:00 AM',
+          '12:00 PM',
+          '02:00 PM',
+          '03:00 PM',
+          '04:00 PM',
+          '05:00 PM',
+          '06:00 PM',
+        ];
+      } else if (currentTime < 10) {
+        slotes = [
+          '02:00 PM',
+          '03:00 PM',
+          '04:00 PM',
+          '05:00 PM',
+          '06:00 PM',
+        ];
+      } else if (currentTime < 11) {
+        slotes = [
+          '03:00 PM',
+          '04:00 PM',
+          '05:00 PM',
+          '06:00 PM',
+        ];
+      } else if (currentTime < 12) {
+        slotes = [
+          '04:00 PM',
+          '05:00 PM',
+          '06:00 PM',
+        ];
+      } else if (currentTime < 13) {
+        slotes = [
+          '05:00 PM',
+          '06:00 PM',
+        ];
+      } else if (currentTime < 14) {
+        slotes = [
+          '06:00 PM',
+        ];
+      } else if (currentTime < 24) {
+        slotes;
+      }
+    } else {
+      slotes = timeSlots;
+    }
+    List<String> availableTimeSlots = List.from(slotes);
 
     // Retrieve all appointments for the current doctor
     List appointmentsForDoctor = appointment.values
