@@ -14,7 +14,7 @@ class AdminAppointmentListScreen extends StatefulWidget {
 class _AdminAppointmentListScreenState
     extends State<AdminAppointmentListScreen> {
   Box<AppointmentModel>? _appointmentBox;
-  late List<AppointmentModel>? _appointments;
+  List<AppointmentModel>? _appointments;
 
   @override
   void initState() {
@@ -35,8 +35,9 @@ class _AdminAppointmentListScreenState
       appBar: AppBar(
         title: const Text('Admin Appointments'),
       ),
-      body:
-          _appointments!.isEmpty ? _buildEmptyState() : _buildAppointmentList(),
+      body: _appointments == null || _appointments!.isEmpty
+          ? _buildEmptyState()
+          : _buildAppointmentList(),
     );
   }
 
