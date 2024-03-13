@@ -5,21 +5,9 @@ class OnBoardings1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Image.asset(
-            'assets/images/Hospital building-bro.png',
-            height: 600,
-          ),
-        ],
-      ),
+    return Image.asset(
+      'assets/images/Hospital building-bro.png',
+      // height: 600,
     );
   }
 }

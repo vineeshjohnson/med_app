@@ -90,7 +90,7 @@ class _BestOffersState extends State<BestOffers> {
                           fontWeight: FontWeight.w500),
                     ),
                     Text(
-                      'Visit our website for new offers,health updates',
+                      'Visit our website for new offers',
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     )
                   ],
