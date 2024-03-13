@@ -185,7 +185,6 @@ class _AppointmentSelectionScreenState
         },
       );
     } else {
-      // Show an error message if date or time is not selected
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -205,7 +204,6 @@ class _AppointmentSelectionScreenState
       ),
     );
 
-    // Navigate to the doctor's home screen after showing the success message
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
       return const BottomNav();
     }));
@@ -215,8 +213,12 @@ class _AppointmentSelectionScreenState
   Widget build(BuildContext context) {
     DateTime currentDate = DateTime.now();
     int currentTime = currentDate.hour;
+    DateTime currentDateWithoutTime =
+        DateTime(currentDate.year, currentDate.month, currentDate.day);
     List<String> slotes = [];
-    if (_selectedDate != null && _selectedDate == currentDate) {
+    if (
+        //_selectedDate != null &&
+        _selectedDate == currentDateWithoutTime) {
       if (currentTime < 8) {
         slotes = [
           '10:00 AM',
@@ -276,7 +278,6 @@ class _AppointmentSelectionScreenState
     }
     List<String> availableTimeSlots = List.from(slotes);
 
-    // Retrieve all appointments for the current doctor
     List appointmentsForDoctor = appointment.values
         .where((appointment) =>
             appointment.doctorName == widget.doctorName &&
@@ -285,12 +286,10 @@ class _AppointmentSelectionScreenState
                 '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}')
         .toList();
 
-    // Extract booked times from appointments
     List bookedTimes = appointmentsForDoctor
         .map((appointment) => appointment.selectedTime)
         .toList();
 
-    // Remove booked times from available time slots
     availableTimeSlots.removeWhere((time) => bookedTimes.contains(time));
 
     return Scaffold(
@@ -299,20 +298,18 @@ class _AppointmentSelectionScreenState
       ),
       body: SingleChildScrollView(
         child: Center(
-          // Center align the column
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.center, // Center align the children
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 40), // Increased space
+                const SizedBox(height: 40),
                 const Text(
                   'Select Date:',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 20), // Increased space
+                const SizedBox(height: 20),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.blue),
@@ -331,19 +328,21 @@ class _AppointmentSelectionScreenState
                     ),
                   ),
                 ),
-                const SizedBox(
-                    height:
-                        60), // Increased space between date and time selection
+                const SizedBox(height: 60),
                 const Text(
                   'Select Time:',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 20), // Increased space
+                const SizedBox(height: 20),
+                if (availableTimeSlots.isEmpty)
+                  const Text(
+                    'No time slots available',
+                    style: TextStyle(fontSize: 18, color: Colors.red),
+                  ),
                 Wrap(
-                  spacing: 20, // Set the spacing between choice chips
-                  runSpacing: 20, // Set the run spacing (vertical spacing)
-                  alignment:
-                      WrapAlignment.center, // Center align the choice chips
+                  spacing: 20,
+                  runSpacing: 20,
+                  alignment: WrapAlignment.center,
                   children: availableTimeSlots.map((time) {
                     return SizedBox(
                       width: 120,
@@ -365,27 +364,26 @@ class _AppointmentSelectionScreenState
                     );
                   }).toList(),
                 ),
-
-                const SizedBox(height: 60), // Increased space
-                ElevatedButton(
-                  onPressed: () {
-                    // print(doctor.length);
-                    _confirmAppointment(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 15),
-                    backgroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+                if (availableTimeSlots.isNotEmpty) const SizedBox(height: 60),
+                if (availableTimeSlots.isNotEmpty)
+                  ElevatedButton(
+                    onPressed: () {
+                      _confirmAppointment(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 15),
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                    child: const Text(
+                      'Confirm Appointment',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
-                  child: const Text(
-                    'Confirm Appointment',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                ),
-                const SizedBox(height: 40), // Increased space
+                const SizedBox(height: 40),
               ],
             ),
           ),

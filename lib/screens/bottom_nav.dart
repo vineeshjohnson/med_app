@@ -28,7 +28,7 @@ class _BottomNavState extends State<BottomNav> {
       child: Scaffold(
         body: widgetList[_selectedIndex],
         bottomNavigationBar: NavigationBar(
-          backgroundColor: Colors.cyan.shade100,
+          backgroundColor: Colors.blue.shade100,
           height: 80,
           elevation: 0,
           selectedIndex: _selectedIndex,

@@ -174,11 +174,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.cyan.shade100,
+        backgroundColor: Colors.indigo.shade300,
         // centerTitle: true,
         title: Text(
           '  Welcome\n${_userDetails?.name ?? 'User'} ',
-          style: const TextStyle(fontSize: 15),
+          style: const TextStyle(fontSize: 15, color: Colors.white),
         ),
       ),
       body: Container(

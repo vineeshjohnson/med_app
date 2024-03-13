@@ -48,7 +48,7 @@ class _DoctorListState extends State<DoctorList> {
       backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.cyan.shade100,
+        backgroundColor: Colors.indigo.shade300,
         centerTitle: true,
         title: const Text('Doctors'),
       ),
